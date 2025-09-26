@@ -1,4 +1,3 @@
-\
 import asyncio, os, time, pathlib, tempfile
 from pyrogram import Client, filters
 from pyrogram.types import Message
