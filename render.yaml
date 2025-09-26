@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: mega-link-downloader-bot
+    env: python
+    region: oregon   # or frankfurt, singapore, etc.
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 10
+    envVars:
+      - key: API_ID
+        value: "your_api_id"
+      - key: API_HASH
+        value: "your_api_hash"
+      - key: BOT_TOKEN
+        value: "your_bot_token"
+      - key: MEGA_EMAIL
+        value: ""
+      - key: MEGA_PASSWORD
+        value: ""
