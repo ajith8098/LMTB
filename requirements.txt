@@ -1,7 +1,9 @@
 pyrogram==2.0.106
 tgcrypto==1.2.5
-mega-py==1.0.8
 tenacity==8.2.3
 aiofiles==23.2.1
 fastapi==0.104.1
 uvicorn==0.24.0
+
+# Use an updated fork
+git+https://github.com/odwyersoftware/mega.py.git
