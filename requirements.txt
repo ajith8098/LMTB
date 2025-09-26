@@ -1,7 +1,6 @@
-pyrogram==2.0.106
-tgcrypto==1.2.5
-mega-py==1.0.8
-tenacity==5.1.1
-aiofiles==23.2.1
-fastapi==0.104.1
-uvicorn==0.24.0
+pyrofork
+tgcrypto
+mega-py
+aiofiles
+fastapi
+uvicorn
