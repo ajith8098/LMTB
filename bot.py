@@ -2,7 +2,7 @@ import asyncio, os, time, pathlib, tempfile
 from pyrogram import Client, filters
 from pyrogram.types import Message
 import config
-from pymega import Mega
+from mega import Mega  # Changed back to mega
 from concurrent.futures import ThreadPoolExecutor
 import logging
 
@@ -55,8 +55,8 @@ def download_mega_link(link, dest_folder, email=None, password=None):
     else:
         m = mega.login()  # anonymous login for public links
     # mega.py provides download_url() that returns the downloaded path
-    path = m.download_url(link, dest_folder)
-    return path
+    file = m.download_url(link, dest_folder)
+    return file
 
 @app.on_message(filters.command("start") & filters.private)
 async def start_handler(client: Client, message: Message):
@@ -76,7 +76,7 @@ async def inline_link_handler(client: Client, message: Message):
     text = message.text or message.caption or ""
     # crude extraction
     for part in text.split():
-        if "mega" in part:
+        if "mega" in part and ("http" in part or "mega.nz" in part or "mega.co" in part):
             await _handle_mega_link(client, message, part)
             return
     await message.reply_text("No valid MEGA link found.")
@@ -94,15 +94,19 @@ async def _handle_mega_link(client: Client, message: Message, link: str):
         )
     except Exception as e:
         await status.edit(f"Download failed: {e}")
+        logger.error(f"Download error: {e}")
         return
+    
     if not downloaded_path or not os.path.exists(downloaded_path):
         await status.edit("Download failed or returned invalid path.")
         return
+    
     fname = os.path.basename(downloaded_path)
     filesize = os.path.getsize(downloaded_path)
     await status.edit(f"Downloaded {fname} ({human_size(filesize)}). Uploading to Telegram...")
     start_upload = time.time()
-    # send file with progress callback (pyrogram supports 'progress' and 'progress_args')
+    
+    # send file with progress callback
     try:
         await client.send_document(
             chat_id=message.chat.id,
@@ -113,14 +117,15 @@ async def _handle_mega_link(client: Client, message: Message, link: str):
         )
     except Exception as e:
         await status.edit(f"Upload failed: {e}")
+        logger.error(f"Upload error: {e}")
         return
+    
     await status.delete()
     # Clean up downloaded file
-
-if __name__ == "__main__":
-    print("Bot is starting...")
-    app.run()
-
+    try:
+        os.remove(downloaded_path)
+    except:
+        pass
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
@@ -128,9 +133,14 @@ import uvicorn
 
 web = FastAPI()
 
+@web.get("/")
+async def root():
+    return {"status": "Bot is running"}
+
 @web.get("/files/{filename}")
 async def get_file(filename: str):
-    filepath = os.path.join(config.DOWNLOAD_DIR, filename)
+    dest = config.DOWNLOAD_DIR if hasattr(config, 'DOWNLOAD_DIR') else '/tmp'
+    filepath = os.path.join(dest, filename)
     if os.path.exists(filepath):
         return FileResponse(filepath, filename=filename)
     return {"error": "File not found"}
@@ -141,4 +151,5 @@ if __name__ == "__main__":
         uvicorn.run(web, host="0.0.0.0", port=10000)
 
     threading.Thread(target=run_web, daemon=True).start()
+    print("Bot is starting...")
     app.run()
