@@ -1,6 +1,6 @@
 pyrofork
 tgcrypto
-mega-py
+pymega==0.1.1  # Use pymega instead of mega-py
 aiofiles
 fastapi
 uvicorn
