@@ -2,7 +2,7 @@ services:
   - type: web
     name: mega-link-downloader-bot
     env: python
-    runtime: python3.11
+    runtime: python3.10
     region: oregon   # or frankfurt, singapore, etc.
     plan: free
     branch: main
