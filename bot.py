@@ -2,7 +2,7 @@ import asyncio, os, time, pathlib, tempfile
 from pyrogram import Client, filters
 from pyrogram.types import Message
 import config
-from mega import Mega
+from pymega import Mega
 from concurrent.futures import ThreadPoolExecutor
 import logging
 
