@@ -12,13 +12,13 @@ services:
       mountPath: /data
       sizeGB: 10
     envVars:
-      - key: API_ID
-        value: "your_api_id"
-      - key: API_HASH
-        value: "your_api_hash"
-      - key: BOT_TOKEN
-        value: "your_bot_token"
-      - key: MEGA_EMAIL
-        value: ""
-      - key: MEGA_PASSWORD
-        value: ""
+  - key: API_ID
+    value: "23990433"
+  - key: API_HASH
+    value: "e6c4b6ee1933711bc4da9d7d17e1eb20"
+  - key: BOT_TOKEN
+    value: "7972560151:AAHlUN7BOsfPwu-LFUpuAV0YLqyGdkEXsrU"
+  - key: MEGA_EMAIL
+    value: "youtu0323@gmail.com"
+  - key: MEGA_PASSWORD
+    value: "12345678Sa@#$"
