@@ -1,7 +1,7 @@
 pyrogram>=2.0.106
 tgcrypto>=1.2.5
 mega.py>=1.0.8
-tenacity>=8.2.2
+tenacity>=5.1.5,<6.0.0
 aiofiles
 fastapi
 uvicorn
