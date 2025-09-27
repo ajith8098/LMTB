@@ -9,5 +9,5 @@ aria2p
 git+https://github.com/Hrishi2861/pyrofork-2.2.11-peer-fix.git
 python-dotenv
 pytz
-git+https://github.com/odwyersoftware/mega.py
+mega.py
 
