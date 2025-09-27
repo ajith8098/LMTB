@@ -1,6 +1,6 @@
 pyrofork
 tgcrypto
-pymega # Use pymega instead of mega-py
 aiofiles
 fastapi
 uvicorn
+requests
