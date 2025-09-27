@@ -2,9 +2,11 @@ import asyncio, os, time, pathlib, tempfile
 from pyrogram import Client, filters
 from pyrogram.types import Message
 import config
-from mega import Mega  # Changed back to mega
+from pymega import Mega  # Changed to match pymega package
 from concurrent.futures import ThreadPoolExecutor
 import logging
+
+# ... rest of your code remains the same
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
