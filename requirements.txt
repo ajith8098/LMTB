@@ -1,6 +1,6 @@
 tgcrypto
 aiofiles
-tenacity
+tenacity>=8.2.3
 fastapi
 uvicorn
 requests
