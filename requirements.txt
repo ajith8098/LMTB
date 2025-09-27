@@ -1,5 +1,6 @@
 tgcrypto
 aiofiles
+tenacity
 fastapi
 uvicorn
 requests
